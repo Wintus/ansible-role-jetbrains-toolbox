@@ -30,7 +30,7 @@
 - name: unarchive binary
   unarchive:
     src: "{{ tarball }}"
-    dest: /usr/local/bin/
+    dest: "{{ jetbrains_toolbox_install_dir }}/"
     mode: a+x
     extra_opts: --strip-components=1 # tar
   become: yes
