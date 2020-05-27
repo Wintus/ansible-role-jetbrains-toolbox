@@ -1,2 +1,3 @@
 ---
-# tasks file for jetbrains-toolbox
+- name: install toolbox
+  import_tasks: install.yml
