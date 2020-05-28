@@ -1,3 +1,14 @@
 ---
+- name: check installed binary
+  shell: |
+    {{ jetbrains_toolbox_install_dir }}/jetbrains-toolbox --version
+  register: app_ver
+  changed_when: no
+  failed_when: no
+
+- set_fact:
+    toolbox_outdated: app_ver.stdout.split() | last is version(jetbrains_toolbox_version, '<')
+
 - name: install toolbox
   import_tasks: install.yml
+  when: toolbox_outdated | bool
