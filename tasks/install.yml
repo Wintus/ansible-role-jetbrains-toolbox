@@ -1,0 +1,36 @@
+---
+- name: create temporary directory
+  tempfile:
+    state: directory
+  register: tmpdir
+
+- name: set vars
+  set_fact:
+    tarball: "{{ tmpdir.path }}/jetbrains-toolbox-{{ jetbrains_toolbox_version }}.tar.gz"
+    url: "https://download-cf.jetbrains.com/toolbox/jetbrains-toolbox-{{ jetbrains_toolbox_version }}.tar.gz"
+
+- name: set vars
+  set_fact:
+    checksum: "{{ tarball }}.sha256"
+    checksum_url: "https://download.jetbrains.com/toolbox/jetbrains-toolbox-{{ jetbrains_toolbox_version }}.tar.gz.sha256"
+
+- name: download checksum of tarball
+  get_url:
+    url: "{{ checksum_url }}"
+    dest: "{{ checksum }}"
+
+- name: download tarball for toolbox
+  get_url:
+    url: "{{ url }}"
+    dest: "{{ tarball }}"
+    sha256sum: "{{ lookup('file', checksum) | regex_search(hex) }}"
+  vars:
+    hex: ([a-f\d]+)
+
+- name: unarchive binary
+  unarchive:
+    src: "{{ tarball }}"
+    dest: "{{ jetbrains_toolbox_install_dir }}/"
+    mode: a+x
+    extra_opts: --strip-components=1 # tar
+  become: yes

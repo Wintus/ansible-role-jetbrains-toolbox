@@ -1,7 +1,7 @@
-Role Name
+JetBrains Toolbox App
 =========
 
-A brief description of the role goes here.
+Install JetBrains Toolbox App
 
 Requirements
 ------------
