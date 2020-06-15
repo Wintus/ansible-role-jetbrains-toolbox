@@ -3,6 +3,9 @@ JetBrains Toolbox App
 
 Install JetBrains Toolbox App
 
+old releases:
+https://toolbox-support.jetbrains.com/hc/en-us/articles/360000048240-Previous-Toolbox-App-releases
+
 Requirements
 ------------
 
